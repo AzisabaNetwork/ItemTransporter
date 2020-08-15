@@ -1,0 +1,9 @@
+## database setting
+database:
+  host: "localhost"
+  port: "3306"
+  user: "root"
+  pass: "password"
+  db: "db"
+## enter server name.pg or lgw.you entered name,please reload command.[/it[itemtransporter] reload]
+server: ""
