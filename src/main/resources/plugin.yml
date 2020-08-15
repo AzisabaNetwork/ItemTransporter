@@ -1,0 +1,4 @@
+name: ItemTransporter
+version: 0.0
+author: testusuke
+main: net.testusuke.azisaba.itemtransporter.Main
