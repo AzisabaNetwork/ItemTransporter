@@ -1,4 +1,4 @@
-package net.testusuke.azisaba.itemtransporter
+package net.testusuke.azisaba.itemtransporter.PG
 
 import net.milkbowl.vault.economy.Economy
 import net.testusuke.azisaba.itemtransporter.Main.Companion.plugin
