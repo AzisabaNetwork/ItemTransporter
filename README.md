@@ -30,3 +30,6 @@ PG,LGWで使用するアイテムなどを行き来させるプラグイン。
 ## ブランチ利用
 開発はdevelopブランチを利用してください。
 masterブランチは完成後にマージしてください。
+
+## 開発者
+* [testusuke](https://github.com/testusuke)
