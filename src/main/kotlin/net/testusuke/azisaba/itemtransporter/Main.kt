@@ -34,6 +34,8 @@ class Main:JavaPlugin() {
         ConfigUtil.loadStatus(statusConfig)
         //  DataBase
         database = DataBase()
+        //  Create Table
+        createTable()
         //  Server
         when(this.server){
             "lgw" -> {
@@ -54,7 +56,7 @@ class Main:JavaPlugin() {
 
     //  SQL
     //  emerald
-    val emeraldSQL = "create table item_transport_emerald\n" +
+    private val emeraldSQL = "create table IF NOT EXISTS item_transport_emerald\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    uuid varchar(36) not null,\n" +
@@ -63,7 +65,7 @@ class Main:JavaPlugin() {
             "    constraint item_transport_emerald_pk\n" +
             "        primary key (id)\n" +
             ");"
-    val itemSQL = "create table item_transport_item\n" +
+    private val itemSQL = "create table IF NOT EXISTS item_transport_item\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    uuid varchar(36) not null,\n" +
@@ -74,7 +76,7 @@ class Main:JavaPlugin() {
             "    constraint item_transport_item_pk\n" +
             "        primary key (id)\n" +
             ");"
-    val itemListSQL = "create table item_transport_item_list\n" +
+    private val itemListSQL = "create table IF NOT EXISTS item_transport_item_list\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    base64 text not null,\n" +
@@ -83,7 +85,7 @@ class Main:JavaPlugin() {
             "    constraint item_transport_item_list_pk\n" +
             "        primary key (id)\n" +
             ");"
-    val logSQL = "create table item_transport_log\n" +
+    private val logSQL = "create table IF NOT EXISTS item_transport_log\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    uuid varchar(36) not null,\n" +
