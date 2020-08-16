@@ -19,6 +19,8 @@ dependencies {
     implementation("com.destroystokyo.paper:paper-api:1.12.2-R0.1-SNAPSHOT")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    //  MariaDB
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.2'
 }
 
 compileKotlin {

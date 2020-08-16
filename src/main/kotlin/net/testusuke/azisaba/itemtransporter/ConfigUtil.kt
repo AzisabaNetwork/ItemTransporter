@@ -1,6 +1,7 @@
 package net.testusuke.azisaba.itemtransporter
 
 import net.testusuke.azisaba.itemtransporter.Main.Companion.plugin
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
@@ -66,4 +67,20 @@ object ConfigUtil {
             plugin.enable = false
         }
     }
+
+    /**
+     * function of load main configuration.
+     * @param config[FileConfiguration]
+     */
+    fun loadMain(config:FileConfiguration){
+        plugin.server = try {
+            val c = config.getString("server").toString()
+            plugin.logger.info("server is $c")
+            c
+        }catch (e:Exception){
+            e.printStackTrace()
+            "none"
+        }
+    }
+
 }

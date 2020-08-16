@@ -5,5 +5,5 @@ database:
   user: "root"
   pass: "password"
   db: "db"
-## enter server name.pg or lgw.you entered name,please reload command.[/it[itemtransporter] reload]
-server: ""
+## enter server name.pg or lgw.you entered name,please reload server.[/reload confirm]
+server: "none"
