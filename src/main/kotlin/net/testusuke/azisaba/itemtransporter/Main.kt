@@ -14,6 +14,7 @@ class Main:JavaPlugin() {
     companion object{
         lateinit var plugin: Main
         lateinit var database:DataBase
+        val prefix = "§e[§aItem§6Transport§e]§f"
     }
 
     //  enable plugin
@@ -51,7 +52,7 @@ class Main:JavaPlugin() {
     }
 
     override fun onDisable() {
-
+        
     }
 
     //  SQL
@@ -96,9 +97,9 @@ class Main:JavaPlugin() {
             "    constraint item_transport_log_pk\n" +
             "        primary key (id)\n" +
             ");"
-    private fun createTable(){
+    private fun createTable() {
         val connection = database.getConnection()
-        if(connection == null){
+        if (connection == null) {
             plugin.logger.info("Can't get connection!")
             return
         }
@@ -113,5 +114,6 @@ class Main:JavaPlugin() {
         //  close
         statement.close()
         connection.close()
+
     }
 }

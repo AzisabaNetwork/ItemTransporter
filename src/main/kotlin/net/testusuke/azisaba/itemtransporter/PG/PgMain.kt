@@ -10,5 +10,11 @@ class PgMain {
 
     init {
         plugin.logger.info("preparing system for pg...")
+        //  Vault
+        VaultManager.setup()
+        //  Command
+        plugin.getCommand("it").executor = Command
+        //  Listener
+        plugin.getServer().pluginManager.registerEvents(Listener, plugin)
     }
 }
