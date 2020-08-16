@@ -27,7 +27,7 @@ class DataBase {
         plugin.logger.info("DataBaseを読み込みました。")
     }
 
-    fun loadConfig() {
+    private fun loadConfig() {
         host = plugin.config.getString("database.host")
         user = plugin.config.getString("database.user")
         pass = plugin.config.getString("database.pass")
