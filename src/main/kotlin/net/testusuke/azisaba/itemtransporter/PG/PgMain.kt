@@ -13,7 +13,7 @@ class PgMain {
         //  Vault
         VaultManager.setup()
         //  Command
-        plugin.getCommand("it").executor = Command
+        plugin.getCommand("it")?.executor = Command
         //  Listener
         plugin.getServer().pluginManager.registerEvents(Listener, plugin)
     }
