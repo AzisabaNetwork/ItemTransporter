@@ -13,10 +13,11 @@ object DataBase {
     fun getAmount(uuid: String): Int? {
         return try {
             val connection = Main.database.getConnection() ?: return null
-            //  Statement
-            val statement = connection.createStatement()
-            val sql = "SELECT amount FROM item_transport_emerald WHERE uuid='${uuid}' LIMIT 1;"
-            val result = statement.executeQuery(sql)
+            //  Statement )
+            val sql = "SELECT amount FROM item_transport_emerald WHERE uuid=? LIMIT 1;"
+            val statement = connection.prepareStatement(sql)
+            statement.setString(1,uuid)
+            val result = statement.executeQuery()
             if(!result.next()){
                 createUser(uuid)
                 return 0
@@ -36,11 +37,13 @@ object DataBase {
     fun createUser(uuid: String):Boolean{
         try {
             val connection = Main.database.getConnection() ?: return false
-            //  Statement
-            val statement = connection.createStatement()
             val mcid = BukkitUtil.getMinecraftID(uuid)?.toString() ?: "none"
-            val sql = "INSERT INTO item_transport_emerald (uuid,mcid,amount) VALUES ('$uuid','$mcid',0);"
-            statement.executeUpdate(sql)
+            val sql = "INSERT INTO item_transport_emerald (uuid,mcid,amount) VALUES (?,?,0);"
+            //  Statement
+            val statement = connection.prepareStatement(sql)
+            statement.setString(1,uuid)
+            statement.setString(2,mcid)
+            statement.executeUpdate()
             return true
         }catch (e:Exception){
             e.printStackTrace()
