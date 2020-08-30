@@ -6,7 +6,7 @@ PG,LGWで使用するアイテムなどを行き来させるプラグイン。
 ## 開発環境
 - Intellij IDEA 2020.2
 - JDK 1.8
-- Kotlin 1.3.72
+- Kotlin 1.4.0
 - Gradle 6.1.1
 - Paper 1.12.2
 
