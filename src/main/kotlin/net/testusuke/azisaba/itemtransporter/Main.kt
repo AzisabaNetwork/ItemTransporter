@@ -14,7 +14,7 @@ class Main:JavaPlugin() {
     companion object{
         lateinit var plugin: Main
         lateinit var database:DataBase
-        val prefix = "§e[§aItem§6Transport§e]§f"
+        const val prefix = "§e[§aItem§6Transport§e]§f"
     }
 
     //  enable plugin
