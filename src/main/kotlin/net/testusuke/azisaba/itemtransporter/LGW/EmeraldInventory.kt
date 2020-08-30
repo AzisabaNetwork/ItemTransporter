@@ -1,6 +1,7 @@
 package net.testusuke.azisaba.itemtransporter.LGW
 
 import net.testusuke.azisaba.itemtransporter.Main
+import net.testusuke.azisaba.itemtransporter.Main.Companion.plugin
 import net.testusuke.azisaba.itemtransporter.Main.Companion.prefix
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -18,13 +19,18 @@ object EmeraldInventory {
     const val INVENTORY_NAME = "§eItemTransporter §dエメラルドを入れてください"
 
     fun open(player: Player){
-        val inv = createInventory(player.uniqueId.toString())
-        if(inv == null){
-            player.sendMessage("${prefix}§cエラーが発生しました。")
-            return
-        }
-        //  open Inventory
-        player.openInventory(inv)
+        //  start thread
+        Thread(Runnable {
+            val inv = createInventory(player.uniqueId.toString())
+            if(inv == null){
+                player.sendMessage("${prefix}§cエラーが発生しました。")
+                return@Runnable
+            }
+            //  open Inventory with Bukkit Runnable
+            Bukkit.getScheduler().runTask(plugin, Runnable {
+                player.openInventory(inv)
+            })
+        }).start()
     }
 
     private fun createInventory(uuid:String):Inventory?{
@@ -39,7 +45,7 @@ object EmeraldInventory {
             inventory.setItem(i,glass)
         }
 
-        //  amount that has emerald
+        //  has amount of emerald
         val dataBaseEmeraldAmount = DataBase.getAmount(uuid) ?: return null
         val hasAmount = ItemStack(Material.EMERALD)
         val hasMeta = hasAmount.itemMeta
