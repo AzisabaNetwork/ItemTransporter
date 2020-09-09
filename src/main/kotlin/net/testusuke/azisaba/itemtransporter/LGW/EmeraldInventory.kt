@@ -56,4 +56,37 @@ object EmeraldInventory {
         return inventory
     }
 
+    //  emerald
+    private val emeraldItemStack = ItemStack(Material.EMERALD)
+    //  emerald block
+    private val emeraldBlockItemStack = ItemStack(Material.EMERALD_BLOCK)
+
+    //  get amount of inventory has emerald
+    fun getEmeraldAmount(player: Player,inventory: Inventory):Int {
+        var amount = 0
+        for(index in 0..17){
+            //  get item stack
+            val item = inventory.getItem(index) ?: continue
+            if(item.isSimilar(emeraldItemStack)){
+                //  item amount
+                val a = item.amount
+                //  add
+                amount += a
+            }else if(item.isSimilar(emeraldBlockItemStack)){
+                //  item amount
+                val a = item.amount
+                val formatted = a * 9
+                //  add
+                amount += formatted
+            }else{
+                //  item material is air
+                if(item.type == Material.AIR) continue
+                //  other
+                player.inventory.addItem(item)
+            }
+
+        }
+        return amount
+    }
+
 }
