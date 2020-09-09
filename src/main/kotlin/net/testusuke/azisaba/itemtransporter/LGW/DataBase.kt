@@ -1,7 +1,9 @@
 package net.testusuke.azisaba.itemtransporter.LGW
 
 import net.testusuke.azisaba.itemtransporter.BukkitUtil
+import net.testusuke.azisaba.itemtransporter.ErrorReason
 import net.testusuke.azisaba.itemtransporter.Main
+import net.testusuke.azisaba.itemtransporter.ResultType
 import java.lang.Exception
 
 /**
@@ -49,6 +51,43 @@ object DataBase {
             e.printStackTrace()
             return false
         }
+    }
+
+    fun addEmerald(uuid: String,amount:Int): ResultType{
+        try {
+            val connection = Main.database.getConnection() ?: return ResultType.Error(ErrorReason.CAN_NOT_ACCESS_DB)
+            val selectSQL = "SELECT amount FROM item_transport_emerald WHERE uuid=? LIMIT 1;"
+            //  Statement
+            val selectStatement = connection.prepareStatement(selectSQL)
+            selectStatement.setString(1,uuid)
+            val result = selectStatement.executeQuery()
+
+            val amountInDB = if(!result.next()){
+                createUser(uuid)
+                0
+            }else {
+                result.getInt("amount")
+            }
+            //  close
+            result.close()
+            selectStatement.close()
+
+            //  UPDATE
+            val updateSQL = "UPDATE item_transport_emerald SET amount=? WHERE uuid=?;"
+            //  statement
+            val updateStatement = connection.prepareStatement(updateSQL)
+            updateStatement.setInt(1,amountInDB + amount)
+            updateStatement.setString(2,uuid)
+            updateStatement.executeUpdate()
+
+            //  close
+            updateStatement.close()
+            connection.close()
+        }catch (e:Exception){
+            e.printStackTrace()
+            return ResultType.Error(ErrorReason.FAILED_SQL)
+        }
+        return ResultType.Success(0)
     }
 
 }
