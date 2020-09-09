@@ -5,7 +5,7 @@ package net.testusuke.azisaba.itemtransporter
  * @author testusuke
  */
 sealed class ResultType {
-    data class Success(val id: Int) : ResultType()
+    data class Success(val amount: Int) : ResultType()
     data class Error(val reason: ErrorReason) : ResultType()
 }
 
