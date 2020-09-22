@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack
  */
 object MenuInventory {
 
-    const val INVENTORY_NAME = ""
+    const val INVENTORY_NAME = "§eItemTransporter §6Menu"
 
     fun open(player: Player){
         //  create
@@ -41,6 +41,5 @@ object MenuInventory {
         //  message
         player.sendMessage("${prefix}§aメニューを開きます。")
     }
-
 
 }

@@ -1,5 +1,7 @@
 package net.testusuke.azisaba.itemtransporter.LGW
 
+import net.testusuke.azisaba.itemtransporter.MessageUtil
+import net.testusuke.azisaba.itemtransporter.Permission
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -25,11 +27,23 @@ object MenuListener:Listener {
 
             //  emerald
             if(slot == 2){
-
+                //  pex
+                if(!player.hasPermission(Permission.LGW_GENERAL)){
+                    MessageUtil.sendPermissionError(player);
+                    return
+                }
+                //  open Inventory
+                EmeraldInventory.open(player)
             }
             //  purchase
             if(slot == 5){
-
+                //  pex
+                if(!player.hasPermission(Permission.LGW_GENERAL)){
+                    MessageUtil.sendPermissionError(player);
+                    return
+                }
+                //  open Inventory
+                PurchaseInventory.open(player)
             }
         }
     }
