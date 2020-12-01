@@ -56,7 +56,13 @@ class Main:JavaPlugin() {
     }
 
     //  SQL
-    //  emerald
+    /*
+    value type description
+    - id int index
+    - uuid char uuid
+    - mcid char mcid
+    - amount int amount
+     */
     private val emeraldSQL = "create table IF NOT EXISTS item_transport_emerald\n" +
             "(\n" +
             "    id int auto_increment,\n" +
@@ -66,26 +72,54 @@ class Main:JavaPlugin() {
             "    constraint item_transport_emerald_pk\n" +
             "        primary key (id)\n" +
             ");"
+    /*
+    This table is purchase item
+    value type description
+    - id int index
+    - uuid char uuid
+    - mcid char mcid
+    - item_id int item id
+    - date datetime
+     */
     private val itemSQL = "create table IF NOT EXISTS item_transport_item\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    uuid varchar(36) not null,\n" +
             "    mcid varchar(20) not null,\n" +
             "    item_id int not null,\n" +
-            "    item_base64 text not null,\n" +
             "    date datetime not null,\n" +
             "    constraint item_transport_item_pk\n" +
             "        primary key (id)\n" +
             ");"
+    /*
+    This table is store item list
+    value type description
+    - id int index/item id
+    - base64 text base64
+    - price int price
+    - available bool to buy is available?
+    - stop bool stop exchange
+     */
     private val itemListSQL = "create table IF NOT EXISTS item_transport_item_list\n" +
             "(\n" +
             "    id int auto_increment,\n" +
             "    base64 text not null,\n" +
             "    price int null,\n" +
             "    available boolean not null,\n" +
+            "    stop boolean not null,\n" +
             "    constraint item_transport_item_list_pk\n" +
             "        primary key (id)\n" +
             ");"
+    /*
+    This is log table
+    value type description
+    - id int index
+    - uuid char uuid
+    - mcid char mcid
+    - server char server name
+    - action char action type
+    - amount char amount of action
+     */
     private val logSQL = "create table IF NOT EXISTS item_transport_log\n" +
             "(\n" +
             "    id int auto_increment,\n" +
@@ -97,6 +131,7 @@ class Main:JavaPlugin() {
             "    constraint item_transport_log_pk\n" +
             "        primary key (id)\n" +
             ");"
+    //   create three table
     private fun createTable() {
         val connection = database.getConnection()
         if (connection == null) {
@@ -114,6 +149,6 @@ class Main:JavaPlugin() {
         //  close
         statement.close()
         connection.close()
-
     }
+
 }
