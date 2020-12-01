@@ -5,6 +5,7 @@ import net.testusuke.azisaba.itemtransporter.ErrorReason
 import net.testusuke.azisaba.itemtransporter.Main
 import net.testusuke.azisaba.itemtransporter.ResultType
 import java.lang.Exception
+import java.sql.SQLException
 
 /**
  * Created by testusuke on 2020/08/16
@@ -30,7 +31,7 @@ object DataBase {
             connection.close()
             //  return
             amount
-        }catch (e:Exception){
+        }catch (e:SQLException){
             e.printStackTrace()
             null
         }
@@ -47,7 +48,7 @@ object DataBase {
             statement.setString(2,mcid)
             statement.executeUpdate()
             return true
-        }catch (e:Exception){
+        }catch (e:SQLException){
             e.printStackTrace()
             return false
         }
@@ -83,7 +84,7 @@ object DataBase {
             //  close
             updateStatement.close()
             connection.close()
-        }catch (e:Exception){
+        }catch (e:SQLException){
             e.printStackTrace()
             return ResultType.Error(ErrorReason.FAILED_SQL)
         }
