@@ -7,12 +7,12 @@ package net.testusuke.azisaba.itemtransporter
 object Permission {
 
     //  Main
-    const val MAIN_ADMIN = ""
+    const val MAIN_ADMIN = "itemtransport.admin"
     //  LGW
-    const val LGW_GENERAL = ""
-    const val LGW_ADMIN = ""
+    const val LGW_GENERAL = "itemtransport.lgw.general"
+    const val LGW_ADMIN = "itemtransport.lgw.admin"
     //  PG
-    const val PG_GENERAL = ""
-    const val PG_ADMIN = ""
+    const val PG_GENERAL = "itemtransport.pg.general"
+    const val PG_ADMIN = "itemtransport.pg.admin"
 
 }
