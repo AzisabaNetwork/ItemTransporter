@@ -10,12 +10,12 @@ import java.util.*
  */
 object BukkitUtil {
 
-    fun getMinecraftID(from: String):UUID? {
+    fun getMinecraftID(from: String):String? {
         try {
             val uuid:UUID = UUID.fromString(from)
             val offlinePlayer = Bukkit.getServer().getOfflinePlayer(uuid)
             if(!existPlayer(offlinePlayer))return null
-            return offlinePlayer.uniqueId
+            return offlinePlayer.name
         }catch (e:Exception){
             e.printStackTrace()
             return null
