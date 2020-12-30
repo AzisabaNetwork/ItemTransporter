@@ -34,7 +34,7 @@ class Main:JavaPlugin() {
         statusConfig = ConfigUtil.loadStatusConfig("status.yml")
         ConfigUtil.loadStatus(statusConfig)
         //  DataBase
-        database = DataBase()
+        database = DataBase(DatabaseType.MARIADB)
         //  Create Table
         createTable()
         //  Server

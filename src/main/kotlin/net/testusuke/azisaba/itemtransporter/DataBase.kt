@@ -5,7 +5,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 
-class DataBase {
+class DataBase(private val databaseType: DatabaseType) {
 
     //  Connect information
     private var host: String? = null
@@ -37,7 +37,15 @@ class DataBase {
 
     private fun loadClass() {
         try {
-            Class.forName("org.mariadb.jdbc.Driver")
+            when(databaseType){
+                DatabaseType.MARIADB -> {
+                    Class.forName("org.mariadb.jdbc.Driver")
+                }
+                DatabaseType.MYSQL -> {
+                    Class.forName("com.mysql.jdbc.Driver")
+                }
+            }
+
             plugin.logger.info("Load class.")
         } catch (e: ClassNotFoundException) {
             e.printStackTrace()
@@ -47,8 +55,15 @@ class DataBase {
 
     fun getConnection(): Connection? {
         val connection: Connection
-        connection = try {
-            DriverManager.getConnection("jdbc:mariadb://$host:$port/$db", user, pass)
+        try {
+            connection = when(databaseType){
+                DatabaseType.MARIADB -> {
+                    DriverManager.getConnection("jdbc:mariadb://$host:$port/$db", user, pass)
+                }
+                DatabaseType.MYSQL -> {
+                    DriverManager.getConnection("jdbc:mysql://$host:$port/$db?autoReconnect=true&useSSL=false", user, pass)
+                }
+            }
         } catch (e: SQLException) {
             e.printStackTrace()
             return null
@@ -66,4 +81,8 @@ class DataBase {
         return true
     }
 
+}
+
+enum class DatabaseType{
+    MYSQL,MARIADB
 }
