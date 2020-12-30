@@ -26,17 +26,17 @@ object EmeraldInventory {
                 player.sendMessage("${prefix}§cエラーが発生しました。")
                 return@Runnable
             }
-            //  open Inventory with Bukkit Runnable
-            Bukkit.getScheduler().runTask(plugin, Runnable {
+            //  open Inventory with Runnable
+            Bukkit.getScheduler().runTask(plugin) {
                 player.openInventory(inv)
-            })
+            }
         }).start()
     }
 
     private fun createInventory(uuid:String):Inventory?{
         val inventory = Bukkit.createInventory(null,27, INVENTORY_NAME)
         //  Glass
-        val glassIndex = arrayOf(18,19,20,21,23,25,26)
+        val glassIndex = arrayOf(18,19,20,21,23,24,25,26)
         val glass = ItemStack(Material.STAINED_GLASS,1,5)
         val glassMeta = glass.itemMeta
         glassMeta.displayName = ""

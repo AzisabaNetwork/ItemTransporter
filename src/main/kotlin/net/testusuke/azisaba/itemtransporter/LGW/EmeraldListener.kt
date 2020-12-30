@@ -45,17 +45,20 @@ object EmeraldListener:Listener {
             val result = DataBase.addEmerald(player.uniqueId.toString(),amount)
             if(result is ResultType.Success){
                 player.sendMessage("${Main.prefix}§6$amount§a個のエメラルドを入れました。")
-            }else if (result is ResultType.Error){
+            }else if (result is ResultType.Error) {
                 player.sendMessage("${Main.prefix}§cエラーが発生しました。エメラルドを返却します。")
                 //  return
-                val emeraldBlockAmount:Int = amount / 9
-                val emeraldAmount:Int = amount % 9
+                val emeraldBlockAmount: Int = amount / 9
+                val emeraldAmount: Int = amount % 9
                 //  ItemStack
-                val emeraldBlock = ItemStack(Material.EMERALD_BLOCK,emeraldBlockAmount)
-                val emerald = ItemStack(Material.EMERALD,emeraldAmount)
-                //  add
-                player.inventory.addItem(emeraldBlock)
-                player.inventory.addItem(emerald)
+                if (emeraldBlockAmount != 0) {
+                    val emeraldBlock = ItemStack(Material.EMERALD_BLOCK, emeraldBlockAmount)
+                    player.inventory.addItem(emeraldBlock)
+                }
+                if (emeraldAmount != 0) {
+                    val emerald = ItemStack(Material.EMERALD, emeraldAmount)
+                    player.inventory.addItem(emerald)
+                }
             }
         }
 
