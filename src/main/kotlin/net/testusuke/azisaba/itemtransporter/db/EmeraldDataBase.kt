@@ -1,17 +1,16 @@
-package net.testusuke.azisaba.itemtransporter.LGW
+package net.testusuke.azisaba.itemtransporter.db
 
 import net.testusuke.azisaba.itemtransporter.BukkitUtil
 import net.testusuke.azisaba.itemtransporter.ErrorReason
 import net.testusuke.azisaba.itemtransporter.Main
 import net.testusuke.azisaba.itemtransporter.ResultType
-import java.lang.Exception
 import java.sql.SQLException
 
 /**
  * Created by testusuke on 2020/08/16
  * @author testusuke
  */
-object DataBase {
+object EmeraldDataBase {
 
     fun getAmount(uuid: String): Int? {
         return try {
@@ -21,11 +20,13 @@ object DataBase {
             val statement = connection.prepareStatement(sql)
             statement.setString(1,uuid)
             val result = statement.executeQuery()
-            if(!result.next()){
+
+            val amount = if(!result.next()){
                 createUser(uuid)
-                return 0
+                0
+            }else {
+                result.getInt("amount")
             }
-            val amount = result.getInt("amount")
             result.close()
             statement.close()
             connection.close()
@@ -39,14 +40,20 @@ object DataBase {
 
     fun createUser(uuid: String):Boolean{
         try {
+            //  check exist
+            if(isRegistered(uuid)) return true
             val connection = Main.database.getConnection() ?: return false
-            val mcid = BukkitUtil.getMinecraftID(uuid)?.toString() ?: "none"
+            val mcid = BukkitUtil.getMinecraftID(uuid) ?: "none"
             val sql = "INSERT INTO item_transport_emerald (uuid,mcid,amount) VALUES (?,?,0);"
             //  Statement
             val statement = connection.prepareStatement(sql)
             statement.setString(1,uuid)
             statement.setString(2,mcid)
             statement.executeUpdate()
+
+            statement.close()
+            connection.close()
+
             return true
         }catch (e:SQLException){
             e.printStackTrace()
@@ -91,4 +98,22 @@ object DataBase {
         return ResultType.Success(0)
     }
 
+    private fun isRegistered(uuid: String): Boolean{
+        return try {
+            val connection = Main.database.getConnection() ?: return false
+            //  Statement )
+            val sql = "SELECT id FROM item_transport_emerald WHERE uuid=? LIMIT 1;"
+            val statement = connection.prepareStatement(sql)
+            statement.setString(1,uuid)
+            val result = statement.executeQuery()
+            val b = result.next()
+            result.close()
+            statement.close()
+            connection.close()
+            b
+        }catch (e:SQLException){
+            e.printStackTrace()
+            false
+        }
+    }
 }
