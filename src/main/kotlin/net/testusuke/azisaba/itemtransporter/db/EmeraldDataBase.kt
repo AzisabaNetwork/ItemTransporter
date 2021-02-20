@@ -64,6 +64,7 @@ object EmeraldDataBase {
     fun addEmerald(uuid: String,amount:Int): ResultType{
         try {
             val connection = Main.database.getConnection() ?: return ResultType.Error(ErrorReason.CAN_NOT_ACCESS_DB)
+            /*
             val selectSQL = "SELECT amount FROM item_transport_emerald WHERE uuid=? LIMIT 1;"
             //  Statement
             val selectStatement = connection.prepareStatement(selectSQL)
@@ -79,12 +80,14 @@ object EmeraldDataBase {
             //  close
             result.close()
             selectStatement.close()
+            */
 
             //  UPDATE
-            val updateSQL = "UPDATE item_transport_emerald SET amount=? WHERE uuid=?;"
+            val updateSQL = "UPDATE item_transport_emerald SET amount=amount+? WHERE uuid=?;"
             //  statement
             val updateStatement = connection.prepareStatement(updateSQL)
-            updateStatement.setInt(1,amountInDB + amount)
+            //updateStatement.setInt(1,amountInDB + amount)
+            updateStatement.setInt(1,amount)
             updateStatement.setString(2,uuid)
             updateStatement.executeUpdate()
 
